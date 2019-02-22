@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:with="title='文章管理',active='article'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<head>
+<meta charset="UTF-8"></meta>
+<title>后台界面</title>
+<style type="text/css">
+body {
+	background-attachment: fixed;
+	background-image: url(/admin/images/bg/1.png);
+}
+
+#main {
+	padding: 70px 0 0 250px;
+}
+</style>
+</head>
+<body>
+	<div class="heaeder" th:include="admin/header"></div>
+	<div id="main">
+		<table style="width: 100%" border="1">
+			<tr>
+				<td><p style="font-weight:bold">文章</p></td>
+				<td><p style="font-weight:bold">点击量</p></td>
+				<td><p style="font-weight:bold">发布日期</p></td>
+				<td><p style="font-weight:bold">最近一次修改日期</p></td>
+				<td><p style="font-weight:bold">操作</p></td>
+			</tr>
+			<tr th:each="mav : ${list}">
+				<td><a th:href="'/goupdate/' + ${mav.cid}"
+					th:text="${mav.title}" th:id="${mav.cid}"></a></td>
+				<td><p th:text="${mav.hits}"></p></td>
+				<td><p th:text="${#dates.format(mav.created,'yyyy-MM-dd HH:mm:ss')}"></p></td>
+				<td><p th:text="${#dates.format(mav.modified,'yyyy-MM-dd HH:mm:ss')}"></p></td>
+				<td><a th:href="'/goupdate/' + ${mav.cid}">编辑</a>&nbsp;&nbsp;<button type="button" onclick="draft()">删除</button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script th:inline="javascript" th:each="mav : ${list}">
+function draft(){
+	var f = confirm("确定删除吗？"+"\n"+"（ps:删除后数据将无法恢复）");
+	var delect = [[${mav.cid}]];
+	if(f == true){
+		location.href='/delect/'+delect;
+	}
+}
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='管理中心',active='home'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<head>
+<meta charset="UTF-8"></meta>
+<title>后台界面</title>
+<style type="text/css">
+body {
+	background-attachment: fixed;
+	background-image: url(/admin/images/bg/1.png);
+}
+
+.main {
+	padding: 70px 0 0 250px;
+}
+
+#span {
+	color: red
+}
+</style>
+</head>
+<body>
+	<div class="heaeder" th:include="admin/header"></div>
+	<div class="main">
+		<div>
+			<p>
+				你一共发布了<span id="span" th:text="${list.size()}"></span>篇文章
+			</p>
+		</div>
+		<div>
+			<table>
+				<tr th:each="mav : ${list}">
+					<td><a href="#" th:text="${mav.title}"
+						th:id="${mav.cid}"></a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+</body>
+</html>

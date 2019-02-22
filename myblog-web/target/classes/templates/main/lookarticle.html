@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>查看文章</title>
+<style type="text/css">
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#main {
+	width: 34%;
+	height: 100%;
+	margin: 20px auto;
+}
+
+#interlayer {
+	width: 34%;
+	margin: 20px auto;
+}
+
+pre {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+</style>
+</head>
+<script type="text/javascript" src="/user/js/comments.js"></script>
+<!-- 爱心特效 -->
+<script type="text/javascript" src="/user/js/love-effects.js"></script>
+<body>
+	<a href="/">返回主页</a>
+	<div id="main" th:each="mav : ${list}">
+		<div id="div_title" style="padding: 0 10px 0 0;">
+			<h1 th:text="${mav.title}" id="title"></h1>
+			<p style="font-weight: lighter;">
+				发布日期：<span style="font-weight: lighter;"
+					th:text="${#dates.format(mav.created,'yyyy-MM-dd HH:mm:ss')}"></span>
+			</p>
+		</div>
+		<div id="div_slug" style="padding: 0 10px 0 0;">
+			<h3 th:text="${mav.summary}" id="summary"></h3>
+		</div>
+		<div id="div_content">
+			<pre th:utext="${mav.content}" id="content"></pre>
+		</div>
+		<div id="interlayer">
+			<a href="/">MORE | 更多精彩文章</a><br />
+		</div>
+		<div id="comments_read">
+			<div id="comments_main" th:each="mav : ${comm1}">
+				<ol>
+					<li><span th:text="${mav.cm_nick}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span
+						th:text="${#dates.format(mav.cm_date,'yyyy-MM-dd HH:mm:ss')}"></span>
+						<p th:id ="'anchor'+${mav.cmid}" th:text="${mav.cm_text}"></p>
+						<button th:onclick="'javascript:frame(\''+${mav.cmid}+'\')'">回复</button>
+						<div th:id="${mav.cmid}" style="display: none;">
+							<textarea style="width: 100%; height: 150px;"
+								th:placeholder="|回复 ${mav.cm_nick} :|" name="cm_text1"></textarea>
+							<button onclick="submit()">提交</button>
+						</div></li>
+				</ol>
+			</div>
+			<div id="comments_write">
+				<form th:action="'/comments/' + ${mav.cid}" method="post">
+					<div id="nick">
+						<input type="text" placeholder="昵称：" required="required"
+							name="cm_nick"></input>
+					</div>
+					<div id="mail">
+						<input type="text" placeholder="邮箱：" required="required"
+							name="cm_email"></input>
+					</div>
+					<div id="textarea">
+						<textarea style="width: 100%; height: 150px" placeholder="回复:"
+							name="cm_text"></textarea>
+					</div>
+					<div>
+						<button onclick="reply()">回复</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

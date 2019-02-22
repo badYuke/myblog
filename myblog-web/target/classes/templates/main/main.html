@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>欢迎界面</title>
+<link rel="stylesheet" href="/user/css/bg.css" type="text/css"></link>
+</head>
+<!-- 爱心特效 -->
+<script type="text/javascript" src="user/js/love-effects.js"></script>
+<body>
+	<div class="heaeder" th:include="main/header"></div>
+	<div align="center">
+		<div>
+			<table>
+				<tr th:each="mav : ${main}">
+					<td><a th:href="'/lookarticle/' + ${mav.cid}"
+						th:text="${mav.title}" th:id="${mav.cid}"></a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

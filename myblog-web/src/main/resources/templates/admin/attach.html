@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='文件管理',active='attach'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<head>
+<meta charset="UTF-8"></meta>
+<title>后台界面</title>
+<style type="text/css">
+body {
+	background-attachment: fixed;
+	background-image: url(/admin/images/bg/1.png);
+}
+#main{
+padding: 70px 0 0 250px;
+
+}
+</style>
+</head>
+<body>
+	<div class="heaeder" th:include="admin/header"></div>
+	<div id="main">
+	<h1>这是一个文件管理界面</h1>
+	<h2>这是一个文件管理界面</h2>
+	<h3>这是一个文件管理界面</h3>
+	<h4>这是一个文件管理界面</h4>
+	</div>
+</body>
+</html>

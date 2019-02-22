@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='发布文章',active='publish'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" type="text/css" href="/simditor/styles/simditor.css" ></link>
+
+<script type="text/javascript" src="/simditor/site/assets/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/simditor/site/assets/scripts/module.js"></script>
+<script type="text/javascript" src="/simditor/site/assets/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="/simditor/site/assets/scripts/uploader.js"></script>
+<script type="text/javascript" src="/simditor/site/assets/scripts/simditor.js"></script>
+
+<title>后台界面</title>
+<style type="text/css">
+body {
+	background-attachment: fixed;
+	background-image: url(/admin/images/bg/1.png);
+}
+
+#main {
+	padding: 70px 0 0 250px;
+}
+</style>
+
+</head>
+<body>
+	<div class="heaeder" th:include="admin/header"></div>
+	<div id="main">
+		<form action="/uedit" method="post">
+			<div id="div_title" style="padding: 0 10px 0 0; width: 220px;">
+				<input type="text" class="form-control" placeholder="请输入文章标题（必须）"
+					name="title" required="required" aria-required="true" ></input>
+			</div>
+			<div id="div_slug" style="padding: 0 10px 0 0; width: 220px;">
+				<input type="text" class="form-control" placeholder="请输入文章标签"
+					name="summary" ></input>
+			</div>
+
+			<div id="div_content" style="padding: 5px 0 0 0;">
+				<textarea id="editor" name="content"></textarea>
+			</div>
+			<div>
+				<input type="submit" value="发布文章"></input>
+				<button type="button" onclick="draft()">存为草稿</button>
+			</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+var editor = new Simditor({
+	  textarea: $('#editor')
+	  //optional options
+	});
+</script>
+<script type="text/javascript">
+	function draft() {
+		alert("别点了，做不了");
+	}
+</script>
+</html>

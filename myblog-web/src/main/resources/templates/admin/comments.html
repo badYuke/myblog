@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:with="title='评论管理',active='comments'">
+<header th:replace="admin/header::headerFragment(${title},${active})"></header>
+<head>
+<meta charset="UTF-8"></meta>
+<title>后台界面</title>
+<style type="text/css">
+body {
+	background-attachment: fixed;
+	background-image: url(/admin/images/bg/1.png);
+}
+
+#main {
+	padding: 70px 0 0 250px;
+}
+</style>
+</head>
+<body>
+	<div class="heaeder" th:include="admin/header"></div>
+	<div id="main">
+		<table style="width: 100%" border="1">
+			<tr>
+				<td><p style="font-weight: bold">评论内容</p></td>
+				<td><p style="font-weight: bold">用户名</p></td>
+				<td><p style="font-weight: bold">邮箱</p></td>
+				<td><p style="font-weight: bold">评论文章</p></td>
+				<td><p style="font-weight: bold">评论日期</p></td>
+				<td><p style="font-weight: bold">审核状态</p></td>
+				<td><p style="font-weight: bold">操作</p></td>
+			</tr>
+			<tr th:each="mav : ${list}">
+				<td><a
+					th:href="'/lookarticle/' + ${mav.cid}+'#anchor'+${mav.cmid}"
+					th:text="${mav.cm_text}"></a></td>
+				<td><p th:text="${mav.cm_nick}"></p></td>
+				<td><p th:text="${mav.cm_email}"></p></td>
+				<td><a th:href="'/lookarticle/' + ${mav.cid}"
+					th:text="${mav.title}"></a></td>
+				<td><p
+						th:text="${#dates.format(mav.cm_date,'yyyy-MM-dd HH:mm:ss')}"></p></td>
+				<td><p th:text="${mav.state} == true ? '审核通过' : '未审核'" th:style="${mav.state} == true ? 'color:green' : 'color:red'"></p></td>
+				<td><a th:href="'/comments_audit/' + ${mav.cmid}">通过</a>&nbsp;&nbsp;
+					<button type="button" onclick="delectComments()">删除</button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script th:inline="javascript" th:each="mav : ${list}">
+function delectComments(){
+	var f = confirm("确定删除吗？"+"\n"+"（ps:删除后数据将无法恢复）");
+	var delect = [[${mav.cmid}]];
+	if(f == true){
+		location.href='/delect_comments/'+delect;
+	}
+}
+</script>
+</html>
